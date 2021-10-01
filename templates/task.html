@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+  <title>Task</title>
+</head>
+<body>
+  <main class="main">
+    
+    <header class="header">
+      <img src="../assets/img/{doable}.svg" />
+    </header>
+
+    <div class="container">
+      <div class="options">
+        <div class="sort">
+          <p>Sort</p>
+          <select>
+            <option value="">Alphabetical (a-z)</option>
+            <option value="">Due date</option>
+            <option value="">Importance</option>
+          </select>
+        </div>
+        <div class="show">
+          <p>Show</p>
+          <div class="input-show">
+            <input type="checkbox" />
+            <label >Only pending</label>
+          </div>
+          
+          <div class="input-show">
+            <input type="checkbox" />
+            <label >Only important</label>
+          </div>
+          
+        </div>
+      </div>
+  
+      <div class="task-list js-content">
+        <ul>
+          <li>
+            <input type="checkbox" />
+            <p>Title</p>
+            <img src="../assets/icons/important_b.svg" alt="importance" />
+          </li>
+  
+          <li>
+            <input type="checkbox" />
+            <p>Title</p>el>
+            <img src="../assets/icons/important_p.svg" alt="importance" />
+          </li>
+  
+          <li>
+            <input type="checkbox" />
+            <p>Title</p>
+            <img src="../assets/icons/important_b.svg" alt="importance" />
+          </li>
+
+          <li>
+            <input type="checkbox" />
+            <p>Title</p>
+            <img src="../assets/icons/important_b.svg" alt="importance" />
+          </li>
+
+          <li>
+            <input type="checkbox" />
+            <p>Title</p>
+            <img src="../assets/icons/important_b.svg" alt="importance" />
+          </li>
+
+          <li>
+            <input type="checkbox" />
+            <p>Title</p>
+            <img src="../assets/icons/important_b.svg" alt="importance" />
+          </li>
+        </ul>
+      </div>
+  
+      <div class="dish-form">
+
+        <form class="form">
+
+          <div class="label-input">
+            <input class="input" type="text" placeholder="do the dishes..." />
+          </div>
+
+          <div class="label-input">
+            <input class="input" type="date" name="date"/>
+          </div>
+    
+          <button type="submit">Add Task</button>
+
+        </form>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>

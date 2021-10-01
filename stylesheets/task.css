@@ -1,0 +1,38 @@
+.container, .options, .task-list ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  gap: 12px;
+}
+
+.options {
+  margin: 12px 17px 0px 17px;
+  gap: 17px;
+}
+
+.sort, .show{
+  display: flex;
+  gap: 47px;
+}
+
+.task-list ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px 17px;
+  gap: 12px;
+}
+
+.task-list li{
+  display: flex;
+  gap: 10px;
+}
+
+/* .task-list ul li:last-child{
+  text-align: right;
+} */
+
+.dish-form {
+  margin: 0px 17px;
+}
