@@ -1,8 +1,10 @@
+import { DOMHandler } from "../domhand.js";
+import { mainPage } from "../pages/main.js";
 import { STORE } from "../store.js";
 import { liTask } from "./taks.js";
 
 
-export const section = function(option) {
+export const section = function(option, option2) {
 
   function importTasks() {
     const tasks = STORE.getTasks();
@@ -21,10 +23,17 @@ export const section = function(option) {
 
   switch (option) {
     case "":
-      return `${importTasks()}`;
+      return `${importTasks()}/${option2}`;
     case "pending":
-      return `${importPending()}`;
+      return `${importPending()}/${option2}`;
     case "important":
-      return `${importImportant()}`;
+      return `${importImportant()}/${option2}`;
   }
+}
+
+export const sortType = function(e) {
+  console.log(STORE.getSortMode())
+  STORE.setSortMode(e.target.value)
+  DOMHandler.render(mainPage)
+  console.log(STORE.getSortMode())
 }

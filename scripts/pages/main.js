@@ -1,4 +1,4 @@
-import { section } from "../components/filterTask.js";
+import { section, sortType } from "../components/filterTask.js";
 import { liTask } from "../components/taks.js";
 import { DOMHandler } from "../domhand.js";
 import { taskFetcher } from "../services/tasks_fetcher.js";
@@ -6,10 +6,10 @@ import { STORE } from "../store.js";
 
 export const mainPage = (() => {
 
-  function importTasks() {
-    const tasks = STORE.getTasks();
-    return tasks.map(task => liTask(task)).join("")
-  }
+  // function importTasks() {
+  //   const tasks = STORE.getTasks();
+  //   return tasks.map(task => liTask(task)).join("")
+  // }
 
   function clickShow(e) {
     const div = document.querySelector(".task-list ul")
@@ -19,27 +19,28 @@ export const mainPage = (() => {
     let inputPendCheck = document.querySelector(".js-p input").checked
     let inputImpoCheck = document.querySelector(".js-i input").checked
 
+
     if(pendingCheck && inputPendCheck) {
       document.querySelector(".js-i input").checked = false
-      div.innerHTML = section("pending")
+      div.innerHTML = section("pending",STORE.getSortMode())
       return;
     }
 
     if((inputPendCheck == false) && pendingCheck) {
       inputPendCheck = true
-      div.innerHTML = section('')
+      div.innerHTML = section('',STORE.getSortMode())
       return;
     }
     
     if(inputImpoCheck && importantCheck) {
       document.querySelector(".js-p input").checked = false;
-      div.innerHTML = section("important")
+      div.innerHTML = section("important",STORE.getSortMode())
       return;
     }
     
     if((inputImpoCheck == false) && importantCheck) {
       inputPendCheck = false;
-      div.innerHTML = section('')
+      div.innerHTML = section('',STORE.getSortMode())
       return;
     }
   }
@@ -57,7 +58,7 @@ export const mainPage = (() => {
     const objTarget = e.target
     const task = STORE.getTask(parseInt(objTarget.id))
     task[objTarget.className] = !task[objTarget.className]
-    console.log(task)
+
     await taskFetcher.update(parseInt(objTarget.id), task)
 
     STORE.setImpBool(document.querySelector(".js-i input").checked)
@@ -66,26 +67,17 @@ export const mainPage = (() => {
     DOMHandler.render(mainPage)
   }
 
-  function sortType(e) {
-    const kindSort = e.target.value
-    // task ???
-    if(kindSort === "alpha") console.log(STORE.getSortAlphabetic())
-    if(kindSort === "date") console.log(STORE.getSortDate())
-    if(kindSort === "import") console.log(STORE.getSortImportance())
-
-  }
-
   return {
     render: () => {
-      let tasklist = importTasks()
+      let tasklist = section('', STORE.getSortMode())
       if(document.querySelector(".js-i input") === null){
-        tasklist = importTasks()
+        tasklist = section('', STORE.getSortMode() )
       }else {
         if (STORE.getPendBool()) {
-          tasklist = section('pending')
+          tasklist = section('pending', STORE.getSortMode())
         }
         if (STORE.getImpBool()) {
-          tasklist = section('important')
+          tasklist = section('important', STORE.getSortMode())
       }}
       return `<div class="container">
                 <div class="options">

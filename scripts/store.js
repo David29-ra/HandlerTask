@@ -3,6 +3,15 @@ export const STORE = (function(){
   let tasks = []
   let pending = false
   let important = false
+  let sortMode = ""
+
+  function setSortMode(data) {
+    sortMode = data
+  }
+
+  function getSortMode() {
+    return sortMode
+  }
 
   function setPendBool(data) {
     pending = data
@@ -94,6 +103,8 @@ export const STORE = (function(){
     setImpBool,
     getImpBool,
     setPendBool,
-    getPendBool
+    getPendBool,
+    setSortMode,
+    getSortMode
   }
 })()
