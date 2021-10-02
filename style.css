@@ -2,3 +2,9 @@
 @import url("./stylesheets/login.css");
 @import url("./stylesheets/main.css");
 @import url("./stylesheets/task.css");
+
+span {
+  display: flex;
+  gap: 8px;
+  margin-left: -8px;
+}

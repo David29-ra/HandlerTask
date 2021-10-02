@@ -12,9 +12,6 @@ body{
 
 .main {
   width: 360px;
-  height: 640px;
-  background-color: lightblue;
-  /* background-color: #E5E5E5; */
 }
 
 .header {
