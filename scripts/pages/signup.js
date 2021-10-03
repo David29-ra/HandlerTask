@@ -9,7 +9,6 @@ export const signUpPage = (() => {
   async function clickCreUser(e) {
     e.preventDefault();
     const { email, password } = e.target;
-    console.log(email.value, password.value)
     try {
       const userCredential = await userFetcher.create(email.value, password.value);
       STORE.setUserData(userCredential);

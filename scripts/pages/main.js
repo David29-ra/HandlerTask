@@ -61,7 +61,6 @@ export const mainPage = (() => {
     DOMHandler.render(loginPage)
     sessionStorage.removeItem("token")
     const toLog =  document.querySelector('.add-img')
-    console.log(toLog)
     toLog.setAttribute("class", "header")
     toLog.innerHTML = `<img src="./assets/img/{doable}.svg" />`
   }
@@ -69,11 +68,11 @@ export const mainPage = (() => {
   return {
     render: () => {
       const toLog =  document.querySelector('.header')
-      console.log(toLog)
-      toLog.setAttribute("class", "add-img")
-      toLog.innerHTML = `<img src="./assets/img/{doable}.svg" />
-                            <img id="out" src="./assets/icons/not.svg" />`
-
+      if(toLog !== null) {
+        toLog.setAttribute("class", "add-img")
+        toLog.innerHTML = `<img src="./assets/img/{doable}.svg" />
+                        <img id="out" src="./assets/icons/not.svg" />`}
+      
       let tasklist = section('', STORE.getSortMode())
       if(document.querySelector(".js-i input") === null) tasklist = section('', STORE.getSortMode() )
       else {
