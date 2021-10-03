@@ -4,36 +4,36 @@ import { STORE } from "../store.js";
 import { liTask } from "./taks.js";
 
 
-export const section = function(option, option2) {
+export const section = function(showOption, sortOption) {
 
   function importTasks() {
     const tasks = STORE.getTasks();
-    return tasks.map(task => liTask(task)).join("")
+    return STORE.doSort(tasks, sortOption).map(liTask).join("")
   }
 
   function importImportant(){
     const tasks = STORE.getImportantTasks();
-    return tasks.map((task) => liTask(task)).join("")
+    return STORE.doSort(tasks, sortOption).map(liTask).join("")
   }
 
   function importPending(){
     const tasks = STORE.getPendingTasks();
-    return tasks.map((task) => liTask(task)).join("")
+    return STORE.doSort(tasks, sortOption).map(liTask).join("")
   }
 
-  switch (option) {
+  switch (showOption) {
     case "":
-      return `${importTasks()}/${option2}`;
+      return `${importTasks()}`;
     case "pending":
-      return `${importPending()}/${option2}`;
+      return `${importPending()}`;
     case "important":
-      return `${importImportant()}/${option2}`;
+      return `${importImportant()}`;
   }
 }
 
 export const sortType = function(e) {
-  console.log(STORE.getSortMode())
   STORE.setSortMode(e.target.value)
+  STORE.setImpBool(document.querySelector(".js-i input").checked)
+  STORE.setPendBool(document.querySelector(".js-p input").checked)
   DOMHandler.render(mainPage)
-  console.log(STORE.getSortMode())
 }

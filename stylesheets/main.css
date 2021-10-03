@@ -21,3 +21,13 @@ body{
   height: 48px;
   background-color: #E5E7EB;
 }
+
+.add-img {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 48px;
+  background-color: #E5E7EB;
+  gap: 96px;
+  padding-right: 19px;
+}

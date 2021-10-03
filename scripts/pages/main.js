@@ -1,16 +1,11 @@
 import { section, sortType } from "../components/filterTask.js";
-import { liTask } from "../components/taks.js";
 import { DOMHandler } from "../domhand.js";
 import { taskFetcher } from "../services/tasks_fetcher.js";
 import { STORE } from "../store.js";
+import { loginPage } from "./login.js";
 
 export const mainPage = (() => {
-
-  // function importTasks() {
-  //   const tasks = STORE.getTasks();
-  //   return tasks.map(task => liTask(task)).join("")
-  // }
-
+  
   function clickShow(e) {
     const div = document.querySelector(".task-list ul")
     let pendingCheck = e.target.id === 'pending'
@@ -19,29 +14,24 @@ export const mainPage = (() => {
     let inputPendCheck = document.querySelector(".js-p input").checked
     let inputImpoCheck = document.querySelector(".js-i input").checked
 
-
     if(pendingCheck && inputPendCheck) {
       document.querySelector(".js-i input").checked = false
       div.innerHTML = section("pending",STORE.getSortMode())
-      return;
     }
 
     if((inputPendCheck == false) && pendingCheck) {
       inputPendCheck = true
       div.innerHTML = section('',STORE.getSortMode())
-      return;
     }
     
     if(inputImpoCheck && importantCheck) {
       document.querySelector(".js-p input").checked = false;
       div.innerHTML = section("important",STORE.getSortMode())
-      return;
     }
     
     if((inputImpoCheck == false) && importantCheck) {
       inputPendCheck = false;
       div.innerHTML = section('',STORE.getSortMode())
-      return;
     }
   }
   
@@ -67,27 +57,38 @@ export const mainPage = (() => {
     DOMHandler.render(mainPage)
   }
 
+  function toLogout() {
+    DOMHandler.render(loginPage)
+    sessionStorage.removeItem("token")
+    const toLog =  document.querySelector('.add-img')
+    console.log(toLog)
+    toLog.setAttribute("class", "header")
+    toLog.innerHTML = `<img src="./assets/img/{doable}.svg" />`
+  }
+
   return {
     render: () => {
+      const toLog =  document.querySelector('.header')
+      console.log(toLog)
+      toLog.setAttribute("class", "add-img")
+      toLog.innerHTML = `<img src="./assets/img/{doable}.svg" />
+                            <img id="out" src="./assets/icons/not.svg" />`
+
       let tasklist = section('', STORE.getSortMode())
-      if(document.querySelector(".js-i input") === null){
-        tasklist = section('', STORE.getSortMode() )
-      }else {
-        if (STORE.getPendBool()) {
-          tasklist = section('pending', STORE.getSortMode())
-        }
-        if (STORE.getImpBool()) {
-          tasklist = section('important', STORE.getSortMode())
-      }}
+      if(document.querySelector(".js-i input") === null) tasklist = section('', STORE.getSortMode() )
+      else {
+        if (STORE.getPendBool()) tasklist = section('pending', STORE.getSortMode())
+        if (STORE.getImpBool()) tasklist = section('important', STORE.getSortMode())
+      }
       return `<div class="container">
                 <div class="options">
                   <div class="sort">
                     <p>Sort</p>
                     <select>
-                      <option value="">Kind of sort …</option>
-                      <option value="alpha">Alphabetical (a-z)</option>
-                      <option value="date">Due date</option>
-                      <option value="import">Importance</option>
+                      <option value="" ${STORE.getSortMode() == "" ? "selected" : ""}>Kind of sort …</option>
+                      <option value="alpha" ${STORE.getSortMode() == "alpha" ? "selected" : ""} >Alphabetical (a-z)</option>
+                      <option value="date" ${STORE.getSortMode() == "date" ? "selected" : ""}>Due date</option>
+                      <option value="import" ${STORE.getSortMode() == "import" ? "selected" : ""}>Importance</option>
                     </select>
                   </div>
                   <div class="show">
@@ -143,6 +144,9 @@ export const mainPage = (() => {
 
       const sort = document.querySelector('.sort select')
       sort.addEventListener('click', sortType)
+
+      const logOut = document.querySelector('.add-img #out')
+      logOut.addEventListener('click', toLogout )
     },
   };
 })();

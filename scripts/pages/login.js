@@ -11,17 +11,13 @@ export const loginPage = (() => {
     e.preventDefault();
     const { email, password } = e.target;
     try {
-      const userCredential = await sessionFetcher.login(
-        email.value,
-        password.value
-      );
-      console.log(email.value, password.value)
+      const userCredential = await sessionFetcher.login(email.value, password.value);
+
       STORE.setUserData(userCredential);
       sessionStorage.setItem("token", userCredential.token);
       const tasks = await taskFetcher.list();
       STORE.setTasks(tasks);
-      DOMHandler.render(mainPage);
-      console.log(userCredential.token)
+      DOMHandler.render(mainPage);    
     } catch (e) {
       console.log(e);
       alert(e);

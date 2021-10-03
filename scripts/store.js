@@ -65,27 +65,38 @@ export const STORE = (function(){
     tasks = [...tasks, newtask]
   }
 
-  function getSortAlphabetic() {
-    console.log('sort alpha')
-    return [...tasks].sort((a, b) => a.title.localeCompare(b.title))
-  }
-
-  function getSortDate() {
-    console.log('sort date')
-    return [...tasks].sort(function(a, b) {
-        const first = new Date(a.due_date) - new Date()
-        const second = new Date(b.due_date) - new Date()
-        return first - second
-    })
-  }
-
-  function getSortImportance() {
-    console.log('importance')
-    return [...tasks].sort((a, b) => b.important - a.important)
-  }
-
   function getTask(taskId) {
     return [...tasks].find(task => task.id === taskId)
+  }
+
+  function doSort(arr, option) {
+
+    function getSortAlphabetic(array) {
+      return [...array].sort((a, b) => a.title.localeCompare(b.title))
+    }
+  
+    function getSortDate(array) {
+      return [...array].sort(function(a, b) {
+          const first = new Date(a.due_date) - new Date()
+          const second = new Date(b.due_date) - new Date()
+          return first - second
+      })
+    }
+  
+    function getSortImportance(array) {
+      return [...array].sort((a, b) => b.important - a.important)
+    }
+
+    switch (option) {
+      case "alpha":
+        return getSortAlphabetic(arr)
+      case "date":
+        return getSortDate(arr)
+      case "import":
+        return getSortImportance(arr)
+      default:
+        return arr
+    }
   }
 
   return {
@@ -97,9 +108,7 @@ export const STORE = (function(){
     getImportantTasks,
     getTask,
     getPendingTasks,
-    getSortAlphabetic,
-    getSortDate,
-    getSortImportance,
+    doSort,
     setImpBool,
     getImpBool,
     setPendBool,

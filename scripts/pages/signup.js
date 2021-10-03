@@ -1,23 +1,20 @@
 import { DOMHandler } from "../domhand.js";
-import { sessionFetcher } from "../services/sessions_fetcher.js";
+import { userFetcher } from "../services/users_fetcher.js";
+import { STORE } from "../store.js";
 import { loginPage } from "./login.js";
+import { mainPage } from "./main.js";
 
 export const signUpPage = (() => {
 
   async function clickCreUser(e) {
     e.preventDefault();
     const { email, password } = e.target;
+    console.log(email.value, password.value)
     try {
-      const userCredential = await sessionFetcher.login(
-        email.value,
-        password.value
-      );
-      // STORE.setUserData(userData);
+      const userCredential = await userFetcher.create(email.value, password.value);
+      STORE.setUserData(userCredential);
       sessionStorage.setItem("token", userCredential.token);
-      // const boards = await BoardFetcher.index();
-      // STORE.setBoards(boards);
-      // DOMHandler.render(Board);
-      console.log(userCredential.token)
+      DOMHandler.render(mainPage);
     } catch (e) {
       console.log(e);
       alert(e);

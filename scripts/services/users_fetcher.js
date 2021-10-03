@@ -1,4 +1,4 @@
-import { apiFetch } from "./api_fetcher.js";
+import { apiFetch } from "./api_fetch.js";
 
 export const userFetcher = (function () {
 
