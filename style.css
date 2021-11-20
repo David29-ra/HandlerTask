@@ -8,3 +8,16 @@ span {
   gap: 8px;
   margin-left: -8px;
 }
+.colorp{
+  color: #9CA3AF;
+}
+
+.colord{
+  color: #D1D5DB;
+  margin-left: 20px;
+}
+
+.date{
+  color: #6B7280;
+  margin-left: 20px;
+}
