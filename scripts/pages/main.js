@@ -38,8 +38,11 @@ export const mainPage = (() => {
   async function createTask(e) {
     e.preventDefault()
     const {title, due_date} = e.target
+    if(title.value === '') alert("Please enter a task title")
+    else{
     const newTask = await taskFetcher.create(title.value, due_date.value)
     STORE.addNewTask(newTask)
+    }
     DOMHandler.render(mainPage)
   }
 
